@@ -10,15 +10,18 @@ await connectDB();
 app.use(express.json());
 app.use(cors());
 
-// 🔥 ADD THIS
-console.log("INNGEST:", inngest);
-console.log("FUNCTIONS:", functions);
+
 
 app.get('/',(req,res)=>res.send('server is running'));
+// 👇 Inngest endpoint
 app.use(
   "/api/inngest",
-  serve(inngest, functions)
+  serve({
+    client: inngest,
+    functions,
+  })
 );
+
 
 const PORT = process.env.PORT || 4000;
 
